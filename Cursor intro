@@ -1,0 +1,33 @@
+--cursors
+set serveroutput on;
+declare
+eno emp.empno%type;
+name emp.ename%type;
+salary emp.sal%type;
+cursor emprec is select empno,ename,sal from emp where deptno=30;
+begin
+open emprec;
+loop
+fetch emprec into eno,name,salary;
+exit when emprec%NOTFOUND;
+dbms_output.put_line(eno||'   '||name||'  '||salary);
+end loop;
+close emprec;
+end;
+
+set serveroutput on;
+declare
+eno number;
+name varchar2(20);
+ejob varchar2(20);
+salary number;
+cursor emp_cur is select empno,ename,job,sal from emp where sal>2000;
+begin
+open emp_cur;
+loop
+fetch emp_cur into eno,name,ejob,salary;
+exit when emp_cur%NOTFOUND ;
+dbms_output.put_line(eno||'  '||name||'  '||ejob||'  '||salary);
+end loop;
+close emp_cur;
+end;
